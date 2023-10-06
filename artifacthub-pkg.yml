@@ -1,0 +1,48 @@
+# Kubewarden Artifacthub Package config
+#
+# Use this config to submit the policy to https://artifacthub.io.
+#
+# This config can be saved to its default location with:
+#   kwctl scaffold artifacthub > artifacthub-pkg.yml 
+version: 0.1.0
+name: ingress-annotations-policy
+displayName: Ingress Annotations Policy
+createdAt: 2023-10-06T09:31:25.579777Z
+description: This policy will inject annotations into Ingress Resources.
+license: Apache-2.0 or MIT
+homeURL: https://github.com/foresightminingsoftwarecorporation/ingress-annotations-policy
+containersImages:
+- name: policy
+  image: ghcr.io/foresightminingsoftwarecorporation/policies/ingress-annotations-policy:v0.1.0
+keywords:
+- ingress
+- kubewarden
+links:
+- name: policy
+  url: https://github.com/foresightminingsoftwarecorporation/ingress-annotations-policy/releases/download/v0.1.0/policy.wasm
+- name: source
+  url: https://github.com/foresightminingsoftwarecorporation/ingress-annotations-policy
+install: |
+  The policy can be obtained using [`kwctl`](https://github.com/kubewarden/kwctl):
+  ```console
+  kwctl pull ghcr.io/foresightminingsoftwarecorporation/policies/ingress-annotations-policy:v0.1.0
+  ```
+maintainers:
+- name: Loïs Postula
+  email: lois.postula@fslabs.ca
+provider:
+  name: kubewarden
+recommendations:
+- url: https://artifacthub.io/packages/helm/kubewarden/kubewarden-controller
+annotations:
+  kubewarden/mutation: 'false'
+  kubewarden/resources: Ingress
+  kubewarden/rules: |
+    - apiGroups:
+      - ''
+      apiVersions:
+      - v1
+      resources:
+      - pods
+      operations:
+      - CREATE
